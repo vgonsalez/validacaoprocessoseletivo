@@ -1,14 +1,47 @@
 package br.candidatura.com;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProcessoSeletivo {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		imprimirSelecionados();
+		String [] candidatos = { "Felipe", "Marcia", "Julia", "Paulo", "Augusto" };
+		for(String candidato: candidatos) {
+			entrandoEmContato(candidato);
+		}
 	}
 	
+	//case4
+	static void entrandoEmContato(String candidato) {
+		int tentativasRealizadas = 1;
+		boolean continuarTentando = true;
+		boolean atendeu = false;
+		
+		do{
+			atendeu = atender();
+			continuarTentando = !atendeu;
+			if(continuarTentando)
+				tentativasRealizadas++;
+			else
+				System.out.println("CONTATO REALIZADO COM SUCESSO!");
+		} while( continuarTentando && tentativasRealizadas < 3);
+		
+		if (atendeu)
+			System.out.println("CONSEGUIMOS CONTATO COM "+ candidato + " NA "+ 
+					tentativasRealizadas +"ª TENTATIVA");
+		else
+			System.out.println("NÃO CONSEGUIMOS CONTATO COM "+ candidato + 
+					", NÚMERO MÁXIMO DE TENTATIVAS "+ tentativasRealizadas);
+	}
+	
+	//metodo auxiliar
+	static boolean atender() {
+		return new Random().nextInt(3)==1;
+	}
+	
+	//case 3
 	static void imprimirSelecionados() {
 		String [] candidatos = { "Felipe", "Marcia", "Julia", "Paulo", "Augusto" };
 		System.out.println("Imprimindo a lista de candidatos informando o indice do elemento:");
@@ -21,6 +54,7 @@ public class ProcessoSeletivo {
 		}
 	}
 	
+	//case 2
 	static void selecaoCandidatos() {
 		String [] candidatos = { "Felipe", "Marcia", "Julia", "Paulo", "Augusto", "Monica", 
 				"Fabricio", "Mirela", "Daniela", "Jorge" };
@@ -46,6 +80,7 @@ public class ProcessoSeletivo {
 		return ThreadLocalRandom.current().nextDouble(1800, 2200);
 	}
 	
+	//case 1
 	static void analisarCandidato(double salarioPretendido) {
 		double salarioBase = 2000.0;
 		if(salarioBase > salarioPretendido) {
